@@ -85,7 +85,7 @@ services:
       labels:
         - traefik.frontend.rule=Host:alertmanager.${DOMAIN:-localhost}
         - traefik.enable=true
-        - traefik.port=9093
+        - traefik.port=10000
         - traefik.tags=public
         - traefik.backend=alertmanager
         - traefik.docker.network=public
