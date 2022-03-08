@@ -11,7 +11,7 @@ services:
     networks:
       - private
     ports:
-      - 8080:8080
+      - 8081:8081
 
   node-exporter:
     image: prom/node-exporter
@@ -45,7 +45,7 @@ services:
     networks:
       - private
     ports:
-      - 9093:9093
+      - 10000:10000
 
   prometheus:
     image: prom/prometheus
