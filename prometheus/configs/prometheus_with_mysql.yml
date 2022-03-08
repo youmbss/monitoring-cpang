@@ -43,7 +43,7 @@ scrape_configs:
     - names:
       - 'tasks.mysql-exporter'
       type: 'A'
-      port: 9104
+      port: 3306
 
   - job_name: 'blackbox'
     metrics_path: /probe
