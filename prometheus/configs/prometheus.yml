@@ -10,7 +10,7 @@ scrape_configs:
     dns_sd_configs:
       - names: ['tasks.translator_translator-service']
         type: A
-        port: 8080
+        port: 8887
         # The time after which the provided names are refreshed
         [ refresh_interval: <duration> | default = 30s ]
         
