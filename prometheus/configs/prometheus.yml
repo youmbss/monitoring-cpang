@@ -3,6 +3,17 @@ scrape_configs:
   - job_name: 'prometheus'
     static_configs:
     - targets: ['192.168.28.9:9090']
+   
+  - job_name: 'Translator Service'
+    metrics_path: translator_translator-service/admin/prometheus
+    scrape_interval: 15s
+    dns_sd_configs:
+      - names: ['tasks.translator_translator-service']
+        type: A
+        port: 8080
+        # The time after which the provided names are refreshed
+        [ refresh_interval: <duration> | default = 30s ]
+        
 
   # Create a job for Docker Swarm containers.
   - job_name: 'dockerswarm'
