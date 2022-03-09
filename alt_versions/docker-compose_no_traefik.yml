@@ -9,7 +9,7 @@ services:
       - /sys:/sys:ro
       - /var/lib/docker:/var/lib/docker:ro
     networks:
-      - private
+      - monitoring
     ports:
       - 8081:8081
     deploy:
@@ -33,14 +33,14 @@ services:
       - "^/(sys|proc|dev|host|etc|rootfs/var/lib/docker/containers|rootfs/var/lib/docker/overlay2|rootfs/run/docker/netns|rootfs/var/lib/docker/aufs)($$|/)"
       - '--collector.textfile.directory=/etc/node-exporter/'
     networks:
-      - private
+      - monitoring
     deploy:
       mode: global
 
   blackbox-exporter:
     image: prom/blackbox-exporter:v0.12.0
     networks:
-      - private
+      - monitoring
 
   alertmanager:
     image: prom/alertmanager
@@ -53,7 +53,7 @@ services:
     volumes:
       - alertmanager:/alertmanager
     networks:
-      - private
+      - monitoring
     ports:
       - 10000:10000
     deploy:
@@ -79,7 +79,8 @@ services:
       - '--web.console.libraries=/etc/prometheus/console_libraries'
       - '--web.console.templates=/etc/prometheus/consoles'
     networks:
-      - private
+      - monitoring
+      - microservices
     ports:
       - 9090:9090
     deploy:
@@ -98,7 +99,7 @@ services:
       - GF_USERS_ALLOW_SIGN_UP=false
       - PROMETHEUS_ENDPOINT=http://prometheus:9090
     networks:
-      - private
+      - monitoring
     ports:
       - 3000:3000
     deploy:
@@ -108,9 +109,10 @@ services:
           - node.role==manager
 
 networks:
-  private:
-    name: private
-    driver: overlay
+  monitoring:
+    external: true
+  microservices:
+    external: true
 
 volumes:
   promconfig: {}
